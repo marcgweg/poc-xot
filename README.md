@@ -70,7 +70,8 @@ cp xot.pem ../nsd/config
 cp xot.key ../bind/config
 cp xot.crt ../bind/config
 cp xot.key ../knot/config
-cp xot.crt ../knot/config```
+cp xot.crt ../knot/config
+```
 
 Create pin for knotdns:
 `openssl x509 -in my-certificate.crt -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64`
