@@ -7,10 +7,10 @@ In this PoC BIND9 is used as a primary name server, serving a zone (example.nl) 
 A complete set of working config files is included in this repository. For now these files are handcrafted.
 
 ## TSIG Key
-/usr/sbin/tsig-keygen -a HMAC-SHA256 xotkey >xotkey.tsig.  ==> ct.sh
+`/usr/sbin/tsig-keygen -a HMAC-SHA256 xotkey >xotkey.tsig`  ==> ct.sh
 
 ## TLS certificates
-openssl genrsa -des3 -out myCA.key 2048
+```openssl genrsa -des3 -out myCA.key 2048
 openssl req -x509 -new -nodes -key myCA.key -sha256 -days 1825 -out myCA.pem
 
 Enter pass phrase for myCA.key:
@@ -52,7 +52,9 @@ keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
 subjectAltName = @alt_names
 
 [alt_names]
-DNS.1 = xot
+DNS.1 = bind9
+DNS.2 = NSD4
+DNS.3 = KNOTDNS3
 
 openssl x509 -req -in xot.csr -CA myCA.pem -CAkey myCA.key \
 -CAcreateserial -out xot.crt -days 825 -sha256 -extfile xot.ext
@@ -68,10 +70,11 @@ cp xot.pem ../nsd/config
 cp xot.key ../bind/config
 cp xot.crt ../bind/config
 cp xot.key ../knot/config
-cp xot.crt ../knot/config
+cp xot.crt ../knot/config```
 
 Create pin for knotdns:
-openssl x509 -in my-certificate.crt -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64
+`openssl x509 -in my-certificate.crt -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64`
+
 ## Components
 | Name      | Version | Description
 |-----------|---------|--------------------------------------------------------------
