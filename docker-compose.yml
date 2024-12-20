@@ -1,0 +1,73 @@
+services:
+  bind9:
+    container_name: bind9
+    hostname: bind9.dev
+    image: bind9:latest
+    networks:
+      xotnet:
+        ipv4_address: 172.20.0.10
+    environment:
+      - TZ=Europe/Amsterdam
+        #ports:
+    volumes:
+      - /home/debian/devel/bind/config:/config:ro
+      - /home/debian/devel/bind/storage:/storage
+  nsd4:
+    container_name: nsd4
+    hostname: nsd4.dev
+    image: nsd:latest
+    depends_on:
+      - bind9
+    networks:
+      xotnet:
+        ipv4_address: 172.20.0.11
+    environment:
+      - TZ=Europe/Amsterdam
+    volumes:
+      - /home/debian/devel/nsd/config:/config:ro
+      - /home/debian/devel/nsd/storage:/storage
+  knotdns3:
+    container_name: knotdns3
+    hostname: knotdns3
+    domainname: sandns.nl
+    image: knotdns:latest
+    depends_on:
+      - bind9
+    networks:
+      xotnet:
+        ipv4_address: 172.20.0.12
+    environment:
+      - TZ=Europe/Amsterdam
+    volumes:
+      - /home/debian/devel/knot/config:/config
+      - /home/debian/devel/knot/storage:/storage:rw
+      - /home/debian/devel/knot/rundir:/rundir:rw
+  dnsutils:
+    container_name: dnsutils
+    image: dnsutils:latest
+    networks:
+      xotnet:
+        ipv4_address: 172.20.0.20
+    environment:
+      - TZ=Europe/Amsterdam
+      - /home/debian/devel/dnsutils/config:/config
+  dns-proxy:
+    container_name: dns-proxy
+    hostname: dns-proxy.dev
+    image: defreitas/dns-proxy-server:3.32.4-snapshot-aarch64
+    networks:
+      xotnet:
+        ipv4_address: 172.20.0.53
+    ports:
+      - 5380:5380
+      - 53:53
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker:/var/lib/docker
+      - /etc/resolv.conf:/etc/resolv.conf
+networks:
+  xotnet:
+    enable_ipv6: false
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24

@@ -1,0 +1,6 @@
+Package: nsd
+Version: VERSION
+Maintainer: SIDN Team DNS
+Architecture: arm64
+Description: SIDN Package for NSD
+

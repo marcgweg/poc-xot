@@ -1,0 +1,32 @@
+# Build file for a dnsclient container that can do dig, drill, delv, dnsviz
+# DNSSEC fake root key files must be supplied through volume
+# docker build -t dnsclient-stiab:latest -f dockerfiles/Dockerfile.dnsclient . &&  docker system prune -f && docker buildx prune -f
+FROM ubuntu:latest
+
+RUN export DEBIAN_FRONTEND=noninteractive; \
+    apt-get update && apt-get upgrade -y && apt-get -y -qq install --no-install-recommends \
+# base (dig, delv, drill) \
+    ca-certificates \
+    dnsutils \
+    ldnsutils \
+    knot-dnsutils \
+# dnsviz \
+#    graphviz \
+#    libgraphviz-dev \
+    libssl-dev \
+#    python3-venv \
+#    gcc \
+#    python3-dev \
+#    swig \
+&& apt-get clean \
+&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && find /var/log -type f -delete
+
+# apt install -y graphviz libgraphviz-dev libssl-dev python3-venv gcc python3-dev swig
+#RUN cd /root && \
+#    python3 -m venv dnsviz && \
+#    . dnsviz/bin/activate && \
+#    pip install -U pip && \
+#    pip install dnspython pygraphviz m2crypto dnsviz cryptography
+
+COPY --chmod=755 entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]

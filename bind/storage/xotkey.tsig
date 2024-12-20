@@ -1,0 +1,4 @@
+key "xotkey" {
+	algorithm hmac-sha256;
+	secret "CjdUCrZWL8RvuMFguJbsxHsbshLCzfJNqkSP8BwpabI=";
+};

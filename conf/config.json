@@ -1,0 +1,47 @@
+{
+  "version" : 2,
+  "activeEnv" : "",
+  "webServerPort" : null,
+  "dnsServerPort" : null,
+  "defaultDns" : null,
+  "logLevel" : null,
+  "logFile" : null,
+  "registerContainerNames" : null,
+  "hostMachineHostname" : null,
+  "domain" : null,
+  "dpsNetwork" : null,
+  "dpsNetworkAutoConnect" : null,
+  "serverProtocol" : null,
+  "dockerHost" : null,
+  "resolvConfOverrideNameServers" : null,
+  "noRemoteServers" : null,
+  "noEntriesResponseCode" : null,
+  "dockerSolverHostMachineFallbackActive" : null,
+  "solverRemote" : null,
+  "remoteDnsServers" : [ ],
+  "envs" : [ {
+    "name" : "",
+    "hostnames" : [ {
+      "id" : 1,
+      "hostname" : "nsd4.sandns.nl",
+      "ip" : "172.20.0.11",
+      "target" : null,
+      "ttl" : 30,
+      "type" : "A"
+    }, {
+      "id" : 27273631805680,
+      "hostname" : "bind9.sandns.nl",
+      "ip" : "172.20.0.10",
+      "target" : "acme.com",
+      "ttl" : 60,
+      "type" : "A"
+    }, {
+      "id" : 27310310209300,
+      "hostname" : "knotdns3.sandns.nl",
+      "ip" : "172.20.0.12",
+      "target" : "acme.com",
+      "ttl" : 60,
+      "type" : "A"
+    } ]
+  } ]
+}

@@ -1,0 +1,54 @@
+NSDXFRD2
+# This file is written on exit by nsd xfr daemon.
+# This file contains secondary zone information:
+# 	* timeouts (when was zone data acquired)
+# 	* state (OK, refreshing, expired)
+# 	* which primary transfer to attempt next
+# The file is read on start (but not on reload) by nsd xfr daemon.
+# You can edit; but do not change statement order
+# and no fancy stuff (like quoted "strings").
+#
+# If you remove a zone entry, it will be refreshed.
+# This can be useful for an expired zone; it revives
+# the zone temporarily, from refresh-expiry time.
+# If you delete the file all secondary zones are updated.
+#
+# Note: if you edit this file while nsd is running,
+#       it will be overwritten on exit by nsd.
+
+filetime: 1733731995	# Mon Dec  9 09:13:15 2024
+
+# The number of zone entries in this file
+numzones: 2
+
+zone: 	name: example.nl
+	state: 0 # OK
+	master: 0
+	next_master: -1
+	round_num: -1
+	next_timeout: 21121	# = 5h 52m 1s
+	backoff: 4
+	soa_nsd_acquired: 1733704418	# was 7h 39m 37s ago
+	soa_nsd: 6 1 3600 7 dns1.example.nl. hostmaster.example.nl. 2010111213 21600 3600 604800 86400
+	# refresh = 6h retry = 1h expire = 7d minimum = 1d
+	soa_disk_acquired: 1733704418	# was 7h 39m 37s ago
+	soa_disk: 6 1 3600 1792 dns1.example.nl. hostmaster.example.nl. 2010111213 21600 3600 604800 86400
+	# refresh = 6h retry = 1h expire = 7d minimum = 1d
+	soa_notify_acquired: 0
+
+zone: 	name: nimago.nl
+	state: 0 # OK
+	master: 0
+	next_master: -1
+	round_num: -1
+	next_timeout: 20303	# = 5h 38m 23s
+	backoff: 2
+	soa_nsd_acquired: 1733731315	# was 11m 20s ago
+	soa_nsd: 6 1 3600 7 dns1.nimago.nl. hostmaster.nimago.nl. 2010111213 21600 3600 604800 86400
+	# refresh = 6h retry = 1h expire = 7d minimum = 1d
+	soa_disk_acquired: 1733731315	# was 11m 20s ago
+	soa_disk: 6 1 3600 1792 dns1.nimago.nl. hostmaster.nimago.nl. 2010111213 21600 3600 604800 86400
+	# refresh = 6h retry = 1h expire = 7d minimum = 1d
+	soa_notify_acquired: 0
+
+NSDXFRD2
